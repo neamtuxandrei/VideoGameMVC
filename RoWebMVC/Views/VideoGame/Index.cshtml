@@ -1,0 +1,66 @@
+﻿@model List<VideoGame>;
+
+
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Game List</h2>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td class="fw-bold">Name</td>
+                <td class="fw-bold">Category</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Category</td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="VideoGame" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i> Details
+                                </a>
+                                <a asp-controller="VideoGame" asp-action="Delete" asp-route-id="@item.Id"  class="btn btn-danger mx-2">
+                                    <i class="bi bi-x-square"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+            }
+        </tbody>
+    </table>
+    @if (ViewBag.TotalPages > 1)
+    {
+            <div>
+                Page:
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                if (i == ViewBag.Page)
+                {
+                                <strong>@i</strong>
+                }
+                else
+                {
+                                <a href="@Url.Action("Index", new { page = i })">@i</a>
+                }
+
+                if (i < ViewBag.TotalPages)
+                {
+                    <text> | </text>
+                }
+            }
+            </div>
+    }
+</div>
+
+
